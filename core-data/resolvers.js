@@ -10,9 +10,10 @@ import {
 	setRequested,
 	receiveTerms,
 	receiveMedia,
-	receivePostTypes,
+	receiveModelRecords,
 	receiveThemeSupportsFromIndex,
 } from './actions';
+import { getModel } from './models';
 
 /**
  * Requests categories from the REST API, yielding action objects on request
@@ -36,14 +37,17 @@ export async function* getMedia( state, id ) {
 }
 
 /**
- * Requests a post type element from the REST API.
+ * Requests a model's record from the REST API.
  *
- * @param {Object} state State tree
- * @param {number} slug  Post Type slug
+ * @param {Object} state       State tree
+ * @param {string} kind        Model kind.
+ * @param {string} name        Model name.
+ * @param {number} primaryKey  Record's Primary key
  */
-export async function* getPostType( state, slug ) {
-	const postType = await apiRequest( { path: `/wp/v2/types/${ slug }?context=edit` } );
-	yield receivePostTypes( postType );
+export async function* getModelRecord( state, kind, name, primaryKey ) {
+	const modelConfig = getModel( kind, name );
+	const record = await apiRequest( { path: `${ modelConfig.baseUrl }/${ primaryKey }?context=edit` } );
+	yield receiveModelRecords( kind, name, record );
 }
 
 /**

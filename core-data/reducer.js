@@ -1,12 +1,17 @@
 /**
  * External dependencies
  */
-import { keyBy } from 'lodash';
+import { keyBy, groupBy } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { combineReducers } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import modelsConfig from './models';
 
 /**
  * Reducer managing terms state. Keyed by taxonomy slug, the value is either
@@ -63,26 +68,6 @@ export function media( state = {}, action ) {
 }
 
 /**
- * Reducer managing post types state. Keyed by slug.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-export function postTypes( state = {}, action ) {
-	switch ( action.type ) {
-		case 'RECEIVE_POST_TYPES':
-			return {
-				...state,
-				...keyBy( action.postTypes, 'slug' ),
-			};
-	}
-
-	return state;
-}
-
-/**
  * Reducer managing theme supports data.
  *
  * @param {Object} state  Current state.
@@ -102,9 +87,58 @@ export function themeSupports( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Higher Order Reducer for a given model config. It supports:
+ *
+ *  - Fetching a record by primariy key
+ *
+ * @param {Object} modelConfig  Model config.
+ *
+ * @return {Function} Reducer.
+ */
+function model( modelConfig ) {
+	return ( state = { byPK: {} }, action ) => {
+		if (
+			! action.name ||
+			! action.kind ||
+			action.name !== modelConfig.name ||
+			action.kind !== modelConfig.kind
+		) {
+			return state;
+		}
+
+		const primaryKey = modelConfig.pk || 'id';
+		switch ( action.type ) {
+			case 'RECEIVE_MODEL_RECORDS':
+				return {
+					byPK: {
+						...state.byPK,
+						...keyBy( action.records, primaryKey ),
+					},
+				};
+			default:
+				return state;
+		}
+	};
+}
+
+const modelsByKind = groupBy( modelsConfig, 'kind' );
+const models = combineReducers( Object.entries( modelsByKind ).reduce( ( memo, [ kind, subModels ] ) => {
+	const kindReducer = combineReducers( subModels.reduce(
+		( kindMemo, modelConfig ) => ( {
+			...kindMemo,
+			[ modelConfig.name ]: model( modelConfig ),
+		} ),
+		{}
+	) );
+
+	memo[ kind ] = kindReducer;
+	return memo;
+}, {} ) );
+
 export default combineReducers( {
 	terms,
 	media,
-	postTypes,
 	themeSupports,
+	models,
 } );
