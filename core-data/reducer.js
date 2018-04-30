@@ -97,7 +97,7 @@ export function themeSupports( state = {}, action ) {
  * @return {Function} Reducer.
  */
 function model( modelConfig ) {
-	return ( state = { byPK: {} }, action ) => {
+	return ( state = { byPrimaryKey: {} }, action ) => {
 		if (
 			! action.name ||
 			! action.kind ||
@@ -107,12 +107,12 @@ function model( modelConfig ) {
 			return state;
 		}
 
-		const primaryKey = modelConfig.pk || 'id';
+		const primaryKey = modelConfig.primaryKey || 'id';
 		switch ( action.type ) {
 			case 'RECEIVE_MODEL_RECORDS':
 				return {
-					byPK: {
-						...state.byPK,
+					byPrimaryKey: {
+						...state.byPrimaryKey,
 						...keyBy( action.records, primaryKey ),
 					},
 				};
