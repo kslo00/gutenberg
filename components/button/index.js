@@ -13,7 +13,7 @@ import { createElement, forwardRef } from '@wordpress/element';
  */
 import './style.scss';
 
-function Button( props, ref ) {
+export function Button( props, ref ) {
 	const {
 		href,
 		target,
