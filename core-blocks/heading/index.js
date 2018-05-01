@@ -4,13 +4,13 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { concatChildren, Fragment } from '@wordpress/element';
 import { PanelBody, Toolbar } from '@wordpress/components';
+import { createBlock } from '@wordpress/blocks';
 import {
-	createBlock,
 	RichText,
 	BlockControls,
 	InspectorControls,
 	AlignmentToolbar,
-} from '@wordpress/blocks';
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies

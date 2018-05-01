@@ -27,7 +27,7 @@ import {
 	InspectorControls,
 	getColorClass,
 	withColors,
-} from '@wordpress/blocks';
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies

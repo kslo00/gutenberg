@@ -8,11 +8,11 @@ import { find, compact, get, initial, last, isEmpty } from 'lodash';
  */
 import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { createBlock } from '@wordpress/blocks';
 import {
-	createBlock,
 	BlockControls,
 	RichText,
-} from '@wordpress/blocks';
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies

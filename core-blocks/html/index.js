@@ -4,7 +4,7 @@
 import { RawHTML } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { withState, SandBox, CodeEditor } from '@wordpress/components';
-import { BlockControls } from '@wordpress/blocks';
+import { BlockControls } from '@wordpress/editor';
 
 /**
  * Internal dependencies

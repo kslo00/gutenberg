@@ -1,13 +1,14 @@
 /**
  * WordPress Dependencies
  */
-import { BlockControls, BlockFormatControls } from '@wordpress/blocks';
 import { withSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
  */
 import './style.scss';
+import BlockControls from '../block-controls';
+import BlockFormatControls from '../block-format-controls';
 
 function BlockToolbar( { block, mode } ) {
 	if ( ! block || ! block.isValid || mode !== 'visual' ) {

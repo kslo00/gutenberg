@@ -10,12 +10,12 @@ import classnames from 'classnames';
 import { __, sprintf } from '@wordpress/i18n';
 import { Toolbar, withState } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
+import { createBlock } from '@wordpress/blocks';
 import {
-	createBlock,
 	BlockControls,
 	AlignmentToolbar,
 	RichText,
-} from '@wordpress/blocks';
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies
