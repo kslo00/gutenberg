@@ -98,7 +98,7 @@ export function getFormatProperties( formatName, parents ) {
 const DEFAULT_FORMATS = [ 'bold', 'italic', 'strikethrough', 'link' ];
 
 export class RichText extends Component {
-	constructor( { value } ) {
+	constructor() {
 		super( ...arguments );
 
 		this.onInit = this.onInit.bind( this );
@@ -120,7 +120,6 @@ export class RichText extends Component {
 			selectedNodeId: 0,
 		};
 
-		this.isEmpty = ! value || ! value.length;
 		this.containerRef = createRef();
 	}
 
@@ -372,7 +371,6 @@ export class RichText extends Component {
 
 	onChange() {
 		this.savedContent = this.getContent();
-		this.isEmpty = isEmpty( this.savedContent, this.props.format );
 		this.props.onChange( this.savedContent );
 	}
 
@@ -788,12 +786,13 @@ export class RichText extends Component {
 		} = this.props;
 
 		const ariaProps = { ...pickAriaProps( this.props ), 'aria-multiline': !! MultilineTag };
+		const isEmpty = ! value || ! value.length;
 
 		// Generating a key that includes `tagName` ensures that if the tag
 		// changes, we unmount and destroy the previous TinyMCE element, then
 		// mount and initialize a new child element in its place.
 		const key = [ 'editor', Tagname ].join();
-		const isPlaceholderVisible = placeholder && ( ! isSelected || keepPlaceholderOnFocus ) && this.isEmpty;
+		const isPlaceholderVisible = placeholder && ( ! isSelected || keepPlaceholderOnFocus ) && isEmpty;
 		const classes = classnames( wrapperClassName, 'blocks-rich-text' );
 
 		const formatToolbar = (
