@@ -59,17 +59,17 @@ export function getMedia( state, id ) {
 }
 
 /**
- * Returns the Post Type object by slug.
+ * Returns the Entity's record object by primary key.
  *
  * @param {Object} state       State tree
- * @param {string} kind        Model kind.
- * @param {string} name        Model name.
+ * @param {string} kind        Entity kind.
+ * @param {string} name        Entity name.
  * @param {number} primaryKey  Record's Primary key
  *
  * @return {Object?} Record.
  */
-export function getModelRecord( state, kind, name, primaryKey ) {
-	return state.models[ kind ][ name ].byPrimaryKey[ primaryKey ];
+export function getEntityRecord( state, kind, name, primaryKey ) {
+	return state.entities[ kind ][ name ].byPrimaryKey[ primaryKey ];
 }
 
 /**

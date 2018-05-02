@@ -10,10 +10,10 @@ import {
 	setRequested,
 	receiveTerms,
 	receiveMedia,
-	receiveModelRecords,
+	receiveEntityRecords,
 	receiveThemeSupportsFromIndex,
 } from './actions';
-import { getModel } from './models';
+import { getEntity } from './entities';
 
 /**
  * Requests categories from the REST API, yielding action objects on request
@@ -37,17 +37,17 @@ export async function* getMedia( state, id ) {
 }
 
 /**
- * Requests a model's record from the REST API.
+ * Requests a entity's record from the REST API.
  *
  * @param {Object} state       State tree
- * @param {string} kind        Model kind.
- * @param {string} name        Model name.
+ * @param {string} kind        Entity kind.
+ * @param {string} name        Entity name.
  * @param {number} primaryKey  Record's Primary key
  */
-export async function* getModelRecord( state, kind, name, primaryKey ) {
-	const modelConfig = getModel( kind, name );
-	const record = await apiRequest( { path: `${ modelConfig.baseUrl }/${ primaryKey }?context=edit` } );
-	yield receiveModelRecords( kind, name, record );
+export async function* getEntityRecord( state, kind, name, primaryKey ) {
+	const entity = getEntity( kind, name );
+	const record = await apiRequest( { path: `${ entity.baseUrl }/${ primaryKey }?context=edit` } );
+	yield receiveEntityRecords( kind, name, record );
 }
 
 /**
