@@ -47,18 +47,6 @@ export function isRequestingCategories( state ) {
 }
 
 /**
- * Returns the media object by id.
- *
- * @param {Object} state Data state.
- * @param {number} id    Media id.
- *
- * @return {Object?}     Media object.
- */
-export function getMedia( state, id ) {
-	return state.media[ id ];
-}
-
-/**
  * Returns the Entity's record object by key.
  *
  * @param {Object} state  State tree

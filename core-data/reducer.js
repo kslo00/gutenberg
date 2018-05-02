@@ -48,26 +48,6 @@ export function terms( state = {}, action ) {
 }
 
 /**
- * Reducer managing media state. Keyed by id.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-export function media( state = {}, action ) {
-	switch ( action.type ) {
-		case 'RECEIVE_MEDIA':
-			return {
-				...state,
-				...keyBy( action.media, 'id' ),
-			};
-	}
-
-	return state;
-}
-
-/**
  * Reducer managing theme supports data.
  *
  * @param {Object} state  Current state.
@@ -138,7 +118,6 @@ export const entities = combineReducers( Object.entries( entitiesByKind ).reduce
 
 export default combineReducers( {
 	terms,
-	media,
 	themeSupports,
 	entities,
 } );
