@@ -59,17 +59,17 @@ export function getMedia( state, id ) {
 }
 
 /**
- * Returns the Entity's record object by primary key.
+ * Returns the Entity's record object by key.
  *
- * @param {Object} state       State tree
- * @param {string} kind        Entity kind.
- * @param {string} name        Entity name.
- * @param {number} primaryKey  Record's Primary key
+ * @param {Object} state  State tree
+ * @param {string} kind   Entity kind.
+ * @param {string} name   Entity name.
+ * @param {number} key    Record's key
  *
  * @return {Object?} Record.
  */
-export function getEntityRecord( state, kind, name, primaryKey ) {
-	return state.entities[ kind ][ name ].byPrimaryKey[ primaryKey ];
+export function getEntityRecord( state, kind, name, key ) {
+	return state.entities[ kind ][ name ].byKey[ key ];
 }
 
 /**

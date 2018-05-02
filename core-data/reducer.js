@@ -97,7 +97,7 @@ export function themeSupports( state = {}, action ) {
  * @return {Function} Reducer.
  */
 function entity( entityConfig ) {
-	return ( state = { byPrimaryKey: {} }, action ) => {
+	return ( state = { byKey: {} }, action ) => {
 		if (
 			! action.name ||
 			! action.kind ||
@@ -107,13 +107,13 @@ function entity( entityConfig ) {
 			return state;
 		}
 
-		const primaryKey = entityConfig.primaryKey || 'id';
+		const key = entityConfig.key || 'id';
 		switch ( action.type ) {
 			case 'RECEIVE_ENTITY_RECORDS':
 				return {
-					byPrimaryKey: {
-						...state.byPrimaryKey,
-						...keyBy( action.records, primaryKey ),
+					byKey: {
+						...state.key,
+						...keyBy( action.records, key ),
 					},
 				};
 			default:
